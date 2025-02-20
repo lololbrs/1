@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temps d'Attente aux Urgences</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #e3f2fd;
+            margin: 0;
+            padding: 20px;
+            transition: background 0.3s, color 0.3s;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .button {
+            display: inline-block;
+            padding: 12px 24px;
+            margin: 10px;
+            background: linear-gradient(45deg, #ff9800, #ff5722);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: transform 0.2s;
+        }
+        .button:hover {
+            background: linear-gradient(45deg, #e68900, #e64a19);
+            transform: scale(1.05);
+        }
+        .dark-mode {
+            background-color: #263238;
+            color: white;
+        }
+        .fade {
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+        .fade.show {
+            opacity: 1;
+        }
+        #time {
+            font-size: 20px;
+            font-weight: bold;
+            color: #ff9800;
+            padding: 10px;
+            display: inline-block;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Temps d'Attente aux Urgences</h1>
+        <p id="time" class="fade">Temps d'attente actuel : <strong>Chargement...</strong></p>
+        <button class="button" onclick="updateTime()">Actualiser</button>
+        <button class="button" onclick="toggleDarkMode()">Mode Sombre</button>
+    </div>
+    <script>
+        function updateTime() {
+            const waitTimes = ["15 minutes", "30 minutes", "45 minutes", "1 heure", "Indisponible"];
+            const randomTime = waitTimes[Math.floor(Math.random() * waitTimes.length)];
+            let timeElement = document.getElementById("time");
+            timeElement.classList.remove("show");
+            setTimeout(() => {
+                timeElement.innerHTML = `Temps d'attente actuel : <strong>${randomTime}</strong>`;
+                timeElement.classList.add("show");
+            }, 500);
+        }
+        function toggleDarkMode() {
+            document.body.classList.toggle("dark-mode");
+            localStorage.setItem("darkMode", document.body.classList.contains("dark-mode"));
+        }
+        window.onload = function() {
+            if (localStorage.getItem("darkMode") === "true") {
+                document.body.classList.add("dark-mode");
+            }
+            updateTime();
+            setInterval(updateTime, 15000);
+        };
+    </script>
+</body>
+</html>
