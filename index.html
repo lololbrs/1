@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temps d'Attente aux Urgences</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+            transition: background 0.3s, color 0.3s;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 10px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .button:hover {
+            background: #0056b3;
+        }
+        .dark-mode {
+            background-color: #222;
+            color: white;
+        }
+        .map {
+            width: 100%;
+            height: 300px;
+            margin-top: 20px;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Temps d'Attente aux Urgences</h1>
+        <p id="time">Temps d'attente actuel : <strong>Chargement...</strong></p>
+        <button class="button" onclick="updateTime()">Actualiser</button>
+        <button class="button" onclick="toggleDarkMode()">Mode Sombre</button>
+        <iframe class="map" src="https://www.google.com/maps/embed/v1/place?key=YOUR_GOOGLE_MAPS_API_KEY&q=hôpital" allowfullscreen></iframe>
+    </div>
+    <script>
+        function updateTime() {
+            const waitTimes = ["15 minutes", "30 minutes", "45 minutes", "1 heure", "Indisponible"];
+            const randomTime = waitTimes[Math.floor(Math.random() * waitTimes.length)];
+            document.getElementById("time").innerHTML = `Temps d'attente actuel : <strong>${randomTime}</strong>`;
+        }
+        function toggleDarkMode() {
+            document.body.classList.toggle("dark-mode");
+        }
+        window.onload = updateTime;
+    </script>
+</body>
+</html>
